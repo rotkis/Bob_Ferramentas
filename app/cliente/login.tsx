@@ -35,7 +35,7 @@ export default function Login() {
           secureTextEntry
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push("/(tabs)/home")}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/(tabs_Cliente)/home")}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 60,
     paddingBottom: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   logo: { width: 60, height: 60, marginBottom: 10 },
   title: {
