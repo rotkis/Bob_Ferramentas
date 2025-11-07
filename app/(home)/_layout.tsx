@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function ClienteLayout() {
+export default function HomeLayout() {
   return (
     <Tabs
       screenOptions={{
@@ -12,27 +12,30 @@ export default function ClienteLayout() {
       }}
     >
       <Tabs.Screen
-        name="login"
+        name="inicio"
         options={{
-          title: "Login",
+          title: "Início",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="log-in-outline" color={color} size={size} />
+            <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
-        name="cadastro"
+        name="carrinho"
         options={{
-          title: "Cadastro",
+          title: "Carrinho",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-add-outline" color={color} size={size} />
+            <Ionicons name="cart" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
-        name="(home)"
+        name="historico"
         options={{
-          href: null, // evita aparecer na barra
+          title: "Histórico",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="time" color={color} size={size} />
+          ),
         }}
       />
     </Tabs>
