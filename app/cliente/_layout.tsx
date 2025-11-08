@@ -4,37 +4,25 @@ import { Ionicons } from "@expo/vector-icons";
 export default function ClienteLayout() {
   return (
     <Tabs
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: "#1E293B",
-        tabBarStyle: { backgroundColor: "#FACC15", borderTopWidth: 0, height: 60 },
-        tabBarLabelStyle: { fontWeight: "600", fontSize: 12 },
-      }}
+        tabBarInactiveTintColor: "gray",
+        tabBarStyle: {
+          backgroundColor: "#FACC15",
+          borderTopWidth: 0,
+          height: 60,
+        },
+        tabBarIcon: ({ color, size }) => {
+          let iconName: keyof typeof Ionicons.glyphMap = "log-in";
+          if (route.name === "login") iconName = "log-in";
+          else if (route.name === "cadastro") iconName = "person-add";
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
     >
-      <Tabs.Screen
-        name="login"
-        options={{
-          title: "Login",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="log-in-outline" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="cadastro"
-        options={{
-          title: "Cadastro",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-add-outline" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="(home)"
-        options={{
-          href: null, // evita aparecer na barra
-        }}
-      />
+      <Tabs.Screen name="login" options={{ title: "Login" }} />
+      <Tabs.Screen name="cadastro" options={{ title: "Cadastro" }} />
     </Tabs>
   );
 }
