@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 export default function Perfil() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>👤 Seu Perfil</Text>
+      <Text style={styles.text}>Sem Relatorio</Text>
     </View>
   );
 }
