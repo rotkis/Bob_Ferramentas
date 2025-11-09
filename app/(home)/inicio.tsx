@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
   },
   logo: { width: 50, height: 50, marginBottom: 10 },
-  title: { fontSize: 20, fontWeight: "700", color: "#1E293B", marginBottom: 10 },
+  title: { fontSize: 20, fontWeight: "700", color: "#1E293B" },
   toolbox: { width: 80, height: 80 },
   searchContainer: {
     flexDirection: "row",

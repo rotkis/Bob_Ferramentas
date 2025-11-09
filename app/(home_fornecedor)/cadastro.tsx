@@ -35,7 +35,7 @@ export default function Cadastro() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Image source={require('../../assets/logo.png')} style={styles.logo} />
         <Text style={styles.headerText}>BOB FERRAMENTAS</Text>
       </View>
 
@@ -88,9 +88,10 @@ export default function Cadastro() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#E9EFF8' },
   header: {
-    backgroundColor: '#90CAF9',
+    backgroundColor: '#7ACEFA',
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingTop: 50,
+    paddingBottom: 20,
   },
   logo: { width: 40, height: 40, marginBottom: 4 },
   headerText: { fontSize: 18, fontWeight: 'bold', color: '#002B5B' },

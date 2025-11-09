@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Carrinho() {
+  const router = useRouter();
+
   const produtos = [
     { id: 1, nome: "Chave de Boca", preco: "R$1,53", dias: 7, imagem: require("../../assets/chave-boca.png"), quantidade: 1 },
     { id: 2, nome: "Escada", preco: "R$1,68", dias: 7, imagem: require("../../assets/escada.png"), quantidade: 2 },
@@ -10,13 +13,11 @@ export default function Carrinho() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Image source={require("../../assets/logo.png")} style={styles.logo} />
         <Text style={styles.title}>BOB FERRAMENTAS</Text>
       </View>
 
-      {/* Conteúdo */}
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.carrinhoBox}>
           <Text style={styles.carrinhoTitle}>Carrinho de Compras:</Text>
@@ -45,25 +46,27 @@ export default function Carrinho() {
         <Text style={styles.subtotal}>Subtotal (5 produtos):</Text>
         <Text style={styles.precoTotal}>R$74,97</Text>
 
-        <TouchableOpacity style={styles.botaoFinalizar}>
-          <Text style={styles.textoBotao}>Finalizar Pedido</Text>
-        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.botaoFinalizar}
+        onPress={() => router.push("/endereco")}
+      >
+        <Text style={styles.textoBotao}>Finalizar Pedido</Text>
+      </TouchableOpacity>
       </ScrollView>
     </View>
   );
 }
 
+// estilos iguais aos seus originais...
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#E8EBF0" },
   header: {
-    backgroundColor: "#7DD3FC",
+    backgroundColor: "#7ACEFA",
     alignItems: "center",
-    paddingTop: 60,
-    paddingBottom: 15,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    paddingTop: 50,
+    paddingBottom: 20,
   },
-  logo: { width: 60, height: 60, marginBottom: 8 },
+  logo: { width: 50, height: 50, marginBottom: 10 },
   title: { fontSize: 20, fontWeight: "700", color: "#1E293B" },
   content: { alignItems: "center", padding: 20 },
   carrinhoBox: {
@@ -73,12 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginBottom: 20,
   },
-  carrinhoTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#1E293B",
-    marginBottom: 10,
-  },
+  carrinhoTitle: { fontSize: 16, fontWeight: "700", color: "#1E293B", marginBottom: 10 },
   item: {
     flexDirection: "row",
     alignItems: "center",

@@ -1,18 +1,18 @@
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 
 const ferramentas = [
-  { id: '1', nome: 'Chave-de-Boca', tipo: 'Disponível', img: require('../assets/wrench.png') },
-  { id: '2', nome: 'Chave-Philips', tipo: 'Disponível', img: require('../assets/screwdriver.png') },
-  { id: '3', nome: 'Martelo', tipo: 'Emprestado', img: require('../assets/hammer.png') },
-  { id: '4', nome: 'Escada', tipo: 'Disponível', img: require('../assets/ladder.png') },
-  { id: '5', nome: 'Serra de Mão', tipo: 'Emprestado', img: require('../assets/saw.png') },
+  { id: '1', nome: 'Chave-de-Boca', tipo: 'Disponível', img: require('../../assets/chave-boca.png') },
+  { id: '2', nome: 'Chave-Inglesa', tipo: 'Disponível', img: require('../../assets/chave-inglesa.png') },
+  { id: '3', nome: 'Martelo', tipo: 'Emprestado', img: require('../../assets/martelo.png') },
+  { id: '4', nome: 'Escada', tipo: 'Disponível', img: require('../../assets/escada.png') },
+  { id: '5', nome: 'Serra de Mão', tipo: 'Emprestado', img: require('../../assets/serra.png') },
 ];
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Image source={require('../../assets/logo.png')} style={styles.logo} />
         <Text style={styles.headerText}>BOB FERRAMENTAS</Text>
       </View>
 
@@ -45,9 +45,10 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#E9EFF8' },
   header: {
-    backgroundColor: '#90CAF9',
+    backgroundColor: '#7ACEFA',
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingTop: 50,
+    paddingBottom: 20,
   },
   logo: { width: 40, height: 40, marginBottom: 4 },
   headerText: { fontSize: 18, fontWeight: 'bold', color: '#002B5B' },
