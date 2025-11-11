@@ -1,29 +1,45 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+  Platform,
+} from "react-native";
 
 export default function Index() {
   const router = useRouter();
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width > 768;
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      {/* Cabeçalho fixo */}
+      <View style={[styles.header, isLargeScreen && styles.headerDesktop]}>
         <Image source={require("../assets/logo.png")} style={styles.logo} />
         <Text style={styles.title}>BOB FERRAMENTAS</Text>
-        <Image source={require("../assets/toolbox.png")} style={styles.toolbox} />
+        {!isLargeScreen && (
+          <Image source={require("../assets/toolbox.png")} style={styles.toolbox} />
+        )}
       </View>
 
-      <View style={styles.body}>
+      {/* Corpo */}
+      <View style={[styles.body, isLargeScreen && { marginTop: 160 }]}>
         <Text style={styles.subtitle}>Entrar como:</Text>
-        <View style={styles.buttonsContainer}>
+
+        <View style={[styles.buttonsContainer, isLargeScreen && styles.buttonsDesktop]}>
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button, isLargeScreen && styles.buttonDesktop]}
             onPress={() => router.push("/cliente/login")}
           >
             <Text style={styles.buttonText}>Cliente</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button, styles.buttonSpacing, isLargeScreen && styles.buttonDesktop]}
             onPress={() => router.push("/fornecedor/login")}
           >
             <Text style={styles.buttonText}>Fornecedor</Text>
@@ -35,32 +51,95 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#E8EBF0" },
+  // Fundo geral
+  container: {
+    flex: 1,
+    backgroundColor: "#E8EBF0",
+  },
+
+  // Cabeçalho fixo
   header: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
     backgroundColor: "#7ACEFA",
     alignItems: "center",
-    paddingTop: 60,
+    justifyContent: "center",
+    paddingTop: 40,
     paddingBottom: 20,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    zIndex: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 10,
   },
-  logo: { width: 60, height: 60, marginBottom: 10 },
+  headerDesktop: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+    paddingVertical: 40,
+  },
+
+  // Elementos do header
+  logo: { width: 70, height: 70, marginBottom: 5 },
   title: {
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: 26,
+    fontWeight: "800",
     color: "#1E293B",
-    marginBottom: 10,
+    letterSpacing: 1,
   },
-  toolbox: { width: 90, height: 90 },
-  body: { flex: 1, alignItems: "center", justifyContent: "center" },
-  subtitle: { fontSize: 16, color: "#1E293B", marginBottom: 20 },
-  buttonsContainer: { flexDirection: "row", gap: 20 },
+  toolbox: { width: 100, height: 100, marginTop: 10 },
+
+  // Corpo principal
+  body: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    marginTop: 180, // espaço pro header fixo no mobile
+  },
+
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#1E293B",
+    marginBottom: 30,
+  },
+
+  buttonsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonsDesktop: {
+    gap: 40,
+  },
+
   button: {
     backgroundColor: "#FACC15",
-    paddingVertical: 25,
-    paddingHorizontal: 35,
-    borderRadius: 15,
-    elevation: 3,
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 5,
+    transitionDuration: "0.2s",
   },
-  buttonText: { fontSize: 18, fontWeight: "600", color: "#1E293B" },
+  buttonDesktop: {
+    minWidth: 180,
+  },
+  buttonSpacing: {
+    marginLeft: 20,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#1E293B",
+    textAlign: "center",
+  },
 });
