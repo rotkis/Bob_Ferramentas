@@ -10,21 +10,31 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 const ferramentas = [
-  { id: "1", nome: "Chave de Boca", preco: "R$ 1,53", imagem: require("../../assets/chave-boca.png") },
-  { id: "2", nome: "Chave Inglesa", preco: "R$ 1,29", imagem: require("../../assets/chave-inglesa.png") },
-  { id: "3", nome: "Martelo", preco: "R$ 2,91", imagem: require("../../assets/martelo.png") },
-  { id: "4", nome: "Escada", preco: "R$ 1,68", imagem: require("../../assets/escada.png") },
-  { id: "5", nome: "Alicate", preco: "R$ 1,99", imagem: require("../../assets/alicate.png") },
-  { id: "6", nome: "Serra de Mão", preco: "R$ 2,29", imagem: require("../../assets/serra.png") },
+  { id: "1", nome: "Chave de Boca", preco: "R$ 1,53", imagem: "chave-boca" },
+  { id: "2", nome: "Chave Inglesa", preco: "R$ 1,29", imagem: "chave-inglesa" },
+  { id: "3", nome: "Martelo", preco: "R$ 2,91", imagem: "martelo" },
+  { id: "4", nome: "Escada", preco: "R$ 1,68", imagem: "escada" },
+  { id: "5", nome: "Alicate", preco: "R$ 1,99", imagem: "alicate" },
+  { id: "6", nome: "Serra de Mão", preco: "R$ 2,29", imagem: "serra" },
 ];
+
+const imagens = {
+  "chave-boca": require("../../assets/chave-boca.png"),
+  "chave-inglesa": require("../../assets/chave-inglesa.png"),
+  martelo: require("../../assets/martelo.png"),
+  escada: require("../../assets/escada.png"),
+  alicate: require("../../assets/alicate.png"),
+  serra: require("../../assets/serra.png"),
+};
 
 export default function Inicio() {
   const { width } = useWindowDimensions();
   const isDesktop = width > 800;
+  const router = useRouter();
 
-  // Ajuste dinâmico de colunas (2 no celular, 3 ou 4 no PC)
   const numColumns = width > 1200 ? 4 : width > 900 ? 3 : 2;
 
   return (
@@ -62,34 +72,48 @@ export default function Inicio() {
           isDesktop && styles.listContentDesktop,
         ]}
         renderItem={({ item }) => (
-          <View style={[styles.card, isDesktop && styles.cardDesktop]}>
-            <Image
-              source={item.imagem}
-              style={[styles.cardImage, isDesktop && styles.cardImageDesktop]}
-            />
-            <Text style={[styles.cardTitle, isDesktop && styles.cardTitleDesktop]}>
-              {item.nome}
-            </Text>
-            <Text style={[styles.cardPrice, isDesktop && styles.cardPriceDesktop]}>
-              {item.preco}
-            </Text>
+          <TouchableOpacity
+            onPress={() =>
+              router.push({
+                pathname: "../detalhes",
+                params: {
+                  id: item.id,
+                  nome: item.nome,
+                  preco: item.preco,
+                  imagem: item.imagem,
+                },
+              })
+            }
+          >
+            <View style={[styles.card, isDesktop && styles.cardDesktop]}>
+              <Image
+                source={imagens[item.imagem]}
+                style={[styles.cardImage, isDesktop && styles.cardImageDesktop]}
+              />
+              <Text style={[styles.cardTitle, isDesktop && styles.cardTitleDesktop]}>
+                {item.nome}
+              </Text>
+              <Text style={[styles.cardPrice, isDesktop && styles.cardPriceDesktop]}>
+                {item.preco}
+              </Text>
 
-            <View style={styles.cardActions}>
-              <TouchableOpacity>
-                <Ionicons name="remove-circle-outline" size={22} color="#1E293B" />
-              </TouchableOpacity>
+              <View style={styles.cardActions}>
+                <TouchableOpacity>
+                  <Ionicons name="remove-circle-outline" size={22} color="#1E293B" />
+                </TouchableOpacity>
 
-              <Text style={styles.cardQuantity}>1</Text>
+                <Text style={styles.cardQuantity}>1</Text>
 
-              <TouchableOpacity>
-                <Ionicons name="add-circle-outline" size={22} color="#1E293B" />
-              </TouchableOpacity>
+                <TouchableOpacity>
+                  <Ionicons name="add-circle-outline" size={22} color="#1E293B" />
+                </TouchableOpacity>
 
-              <TouchableOpacity style={{ marginLeft: 6 }}>
-                <Ionicons name="cart-outline" size={22} color="#2563EB" />
-              </TouchableOpacity>
+                <TouchableOpacity style={{ marginLeft: 6 }}>
+                  <Ionicons name="cart-outline" size={22} color="#2563EB" />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -98,8 +122,6 @@ export default function Inicio() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#E8EBF0" },
-
-  // ===== HEADER =====
   header: {
     backgroundColor: "#7ACEFA",
     alignItems: "center",
@@ -128,8 +150,6 @@ const styles = StyleSheet.create({
   titleDesktop: {
     fontSize: 28,
   },
-
-  // ===== SEARCH BAR =====
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -151,8 +171,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#1E293B",
   },
-
-  // ===== SECTION TITLE =====
   sectionTitle: {
     fontSize: 18,
     fontWeight: "700",
@@ -165,8 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginVertical: 15,
   },
-
-  // ===== LIST =====
   listContent: {
     paddingHorizontal: 10,
     paddingBottom: 20,
@@ -175,8 +191,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     maxWidth: 1200,
   },
-
-  // ===== CARDS =====
   card: {
     flex: 1,
     backgroundColor: "#FFF",
@@ -212,8 +226,6 @@ const styles = StyleSheet.create({
   cardPriceDesktop: {
     fontSize: 15,
   },
-
-  // ===== ACTIONS =====
   cardActions: {
     flexDirection: "row",
     alignItems: "center",
