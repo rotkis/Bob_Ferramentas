@@ -122,6 +122,7 @@ export default function Inicio() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#E8EBF0" },
+  
   header: {
     backgroundColor: "#7ACEFA",
     alignItems: "center",
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   headerDesktop: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     gap: 20,

@@ -41,7 +41,6 @@ export default function DetalhesFerramenta() {
 
   const Conteudo = (
     <View style={[styles.content, isDesktop && styles.contentDesktop]}>
-      {/* Botão de voltar */}
       <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
         <Ionicons name="chevron-back" size={26} color="#1E293B" />
         <Text style={styles.backText}>Voltar</Text>
@@ -49,14 +48,11 @@ export default function DetalhesFerramenta() {
 
       <Text style={styles.sectionTitle}>Detalhes da Ferramenta</Text>
 
-      {/* Container geral da imagem + info */}
       <View style={[styles.infoContainer, isDesktop && styles.infoContainerDesktop]}>
-        {/* Imagem */}
         <View style={[styles.imageContainer, isDesktop && styles.imageContainerDesktop]}>
           <Image source={imagens[imagem]} style={styles.image} resizeMode="contain" />
         </View>
 
-        {/* Informações ao lado */}
         <View style={[styles.detailsContainer, isDesktop && styles.detailsContainerDesktop]}>
           <Text style={styles.nome}>{nome}</Text>
           <Text style={styles.preco}>{preco} por dia</Text>
@@ -64,10 +60,14 @@ export default function DetalhesFerramenta() {
           <Text style={styles.descricaoTitulo}>Descrição:</Text>
           <Text style={styles.descricao}>{descricoes[nome]}</Text>
 
-          {/* Seletores */}
-          <View style={styles.selectContainer}>
+          <View
+            style={[
+              styles.selectContainer,
+              isDesktop && styles.selectContainerDesktop,
+            ]}
+          >
             <Text style={styles.label}>Quantidade:</Text>
-            <View style={styles.pickerWrapper}>
+            <View style={[styles.pickerWrapper, isDesktop && styles.pickerWrapperDesktop]}>
               <Picker selectedValue={quantidade} onValueChange={(v) => setQuantidade(v)}>
                 <Picker.Item label="1" value="1" />
                 <Picker.Item label="2" value="2" />
@@ -78,7 +78,7 @@ export default function DetalhesFerramenta() {
             </View>
 
             <Text style={styles.label}>Tempo:</Text>
-            <View style={styles.pickerWrapper}>
+            <View style={[styles.pickerWrapper, isDesktop && styles.pickerWrapperDesktop]}>
               <Picker selectedValue={tempo} onValueChange={(v) => setTempo(v)}>
                 <Picker.Item label="7 dias" value="7 dias" />
                 <Picker.Item label="14 dias" value="14 dias" />
@@ -87,14 +87,14 @@ export default function DetalhesFerramenta() {
             </View>
           </View>
 
-          {/* Botão */}
-          <TouchableOpacity style={styles.botao}>
-            <Text style={styles.botaoTexto}>Adicionar ao Carrinho</Text>
+          <TouchableOpacity style={[styles.botao, isDesktop && styles.botaoDesktop]}>
+            <Text style={[styles.botaoTexto, isDesktop && styles.botaoTextoDesktop]}>
+              Adicionar ao Carrinho
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* Avaliações */}
       <View style={styles.avaliacaoContainer}>
         <Text style={styles.avaliacaoTitulo}>Avaliações:</Text>
         <View style={styles.stars}>
@@ -111,7 +111,6 @@ export default function DetalhesFerramenta() {
 
   return (
     <View style={styles.container}>
-      {/* Barra azul fixa */}
       <View style={[styles.header, isDesktop && styles.headerDesktop]}>
         <Image source={require("../assets/logo.png")} style={styles.logo} />
         <Text style={[styles.headerTitle, isDesktop && styles.headerTitleDesktop]}>
@@ -119,7 +118,6 @@ export default function DetalhesFerramenta() {
         </Text>
       </View>
 
-      {/* Scroll apenas no mobile */}
       {isDesktop ? Conteudo : <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>{Conteudo}</ScrollView>}
     </View>
   );
@@ -127,8 +125,6 @@ export default function DetalhesFerramenta() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#E8EBF0" },
-
-  // HEADER
   header: {
     backgroundColor: "#7ACEFA",
     alignItems: "center",
@@ -140,51 +136,22 @@ const styles = StyleSheet.create({
     width: "100%",
     zIndex: 2,
   },
-  headerDesktop: {
-    flexDirection: "row",
-    paddingVertical: 25,
-  },
+  headerDesktop: { flexDirection: "column", paddingVertical: 25 },
   logo: { width: 55, height: 55, marginBottom: 5 },
   headerTitle: { fontSize: 20, fontWeight: "700", color: "#1E293B" },
   headerTitleDesktop: { fontSize: 26, marginLeft: 10 },
-
-  // CONTENT
   content: {
     flex: 1,
     marginTop: 130,
     paddingHorizontal: 20,
     alignItems: "center",
   },
-  contentDesktop: {
-    alignItems: "flex-start",
-    paddingHorizontal: 100,
-  },
-  backButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
-    marginBottom: 10,
-  },
+  contentDesktop: { alignItems: "flex-start", paddingHorizontal: 100 },
+  backButton: { flexDirection: "row", alignItems: "center", alignSelf: "flex-start", marginBottom: 20, marginTop: 40 },
   backText: { fontSize: 16, fontWeight: "600", color: "#1E293B", marginLeft: 5 },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#1E293B",
-    marginBottom: 15,
-    alignSelf: "flex-start",
-  },
-
-  // Layout imagem + descrição
-  infoContainer: {
-    alignItems: "center",
-    width: "100%",
-  },
-  infoContainerDesktop: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 40,
-  },
-
+  sectionTitle: { fontSize: 18, fontWeight: "700", color: "#1E293B", marginBottom: 15, alignSelf: "flex-start" },
+  infoContainer: { alignItems: "center", width: "100%" },
+  infoContainerDesktop: { flexDirection: "row", alignItems: "flex-start", gap: 40 },
   imageContainer: {
     backgroundColor: "#FFF",
     borderRadius: 15,
@@ -194,31 +161,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     marginBottom: 15,
   },
-  imageContainerDesktop: {
-    width: 300,
-    height: 300,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  imageContainerDesktop: { width: 300, height: 300, justifyContent: "center", alignItems: "center" },
   image: { width: 180, height: 180 },
-
-  detailsContainer: {
-    alignItems: "center",
-    width: "100%",
-  },
-  detailsContainerDesktop: {
-    alignItems: "flex-start",
-    flex: 1,
-  },
-
+  detailsContainer: { alignItems: "center", width: "100%" },
+  detailsContainerDesktop: { alignItems: "flex-start", flex: 1 },
   nome: { fontSize: 22, fontWeight: "700", color: "#1E293B" },
   preco: { fontSize: 18, color: "#1E293B", marginVertical: 5 },
-  descricaoTitulo: {
-    fontSize: 16,
-    fontWeight: "700",
-    alignSelf: "flex-start",
-    color: "#1E293B",
-  },
+  descricaoTitulo: { fontSize: 16, fontWeight: "700", alignSelf: "flex-start", color: "#1E293B" },
   descricao: {
     fontSize: 14,
     color: "#475569",
@@ -226,15 +175,16 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignSelf: "flex-start",
   },
-
   selectContainer: { width: "100%", marginBottom: 15 },
+  selectContainerDesktop: { flexDirection: "row", alignItems: "center", gap: 15, width: "70%" },
   label: { fontWeight: "600", fontSize: 15, color: "#1E293B" },
-  pickerWrapper: {
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    marginBottom: 10,
+  pickerWrapper: { backgroundColor: "#FFF", borderRadius: 0, marginBottom: 0,  padding: 0},
+  pickerWrapperDesktop: {
+    width: 100,
+    height: 20,
+    marginBottom: 0,
+    padding: 0
   },
-
   botao: {
     backgroundColor: "#FACC15",
     borderRadius: 10,
@@ -243,29 +193,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
-  botaoTexto: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#1E293B",
-  },
-
-  avaliacaoContainer: {
-    alignItems: "center",
+  botaoDesktop: {
+    width: 200,
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignSelf: "flex-start",
     marginTop: 10,
   },
-  avaliacaoTitulo: {
-    fontWeight: "700",
-    fontSize: 16,
-    color: "#1E293B",
-    marginBottom: 5,
-  },
-  stars: {
-    flexDirection: "row",
-    marginBottom: 5,
-  },
-  comentario: {
-    fontWeight: "600",
-    fontSize: 15,
-    color: "#1E293B",
-  },
+  botaoTexto: { fontSize: 16, fontWeight: "700", color: "#1E293B" },
+  botaoTextoDesktop: { fontSize: 14 },
+  avaliacaoContainer: { alignItems: "center", marginTop: 10 },
+  avaliacaoTitulo: { fontWeight: "700", fontSize: 16, color: "#1E293B", marginBottom: 5 },
+  stars: { flexDirection: "row", marginBottom: 5 },
+  comentario: { fontWeight: "600", fontSize: 15, color: "#1E293B" },
 });
